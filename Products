@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Products — ATOZ Bangladesh</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header small">
+    <div class="container header-inner">
+      <h1 class="logo"><a href="index.html">OneZ <span>Bangladesh</span></a></h1>
+      <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="cart-btn-2">Cart (<span id="cart-count-2">0</span>)</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>All Products</h2>
+
+    <div class="product-grid" id="product-list">
+      <article class="card">
+        <img src="images/electronics.jpg" alt="Electronics">
+        <h4>Smartphone ABC</h4>
+        <div class="price">৳ 15,999</div>
+        <div class="card-actions">
+          <button class="btn add" data-id="p1">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/mobile.jpg" alt="Mobile">
+        <h4>Wireless Earbuds</h4>
+        <div class="price">৳ 2,499</div>
+        <div class="card-actions">
+          <button class="btn add" data-id="p2">Add to Cart</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="images/fashion.jpg" alt="Fashion">
+        <h4>Men's Jacket</h4>
+        <div class="price">৳ 2,599</div>
+        <div class="card-actions">
+          <button class="btn add" data-id="p3">Add to Cart</button>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container"><p>© <span id="year2"></span> OneZ Bangladesh — ATOZ Zone</p></div>
+  </footer>
+
+  <script>
+    document.getElementById('year2').textContent = new Date().getFullYear();
+    const cartKey = 'atoz_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    function updateCartCount(){ document.getElementById('cart-count-2').textContent = cart.length; }
+    updateCartCount();
+    document.addEventListener('click', function(e){
+      if(e.target.matches('.add')){
+        const card = e.target.closest('.card');
+        const title = card.querySelector('h4').textContent;
+        const priceText = card.querySelector('.price').textContent.replace(/[^\d]/g,'') || '0';
+        cart.push({title, price: parseInt(priceText)});
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        updateCartCount();
+        alert(title + ' added to cart');
+      }
+    });
+  </script>
+</body>
+</html>
