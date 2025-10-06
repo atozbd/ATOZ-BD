@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OneZ Bangladesh — ATOZ Zone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="logo"><a href="index.html">OneZ <span>Bangladesh</span></a></h1>
+
+      <div class="search">
+        <input id="search-input" placeholder="Search for products, brands and more">
+        <button id="search-btn">Search</button>
+      </div>
+
+      <nav class="top-nav">
+        <a href="products.html">All</a>
+        <a href="#">Deals</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+      </nav>
+    </div>
+
+    <div class="category-bar">
+      <div class="container">
+        <a href="#" class="cat">Electronics</a>
+        <a href="#" class="cat">Fashion</a>
+        <a href="#" class="cat">Grocery</a>
+        <a href="#" class="cat">Mobile &amp; Gadgets</a>
+        <a href="#" class="cat">Home &amp; Furniture</a>
+        <a href="#" class="cat">Beauty &amp; Health</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Shop the best deals on OneZ</h2>
+        <p>Electronics, Fashion, Home, Grocery and more — all in one place.</p>
+        <a class="btn" href="products.html">Start Shopping</a>
+      </div>
+      <div class="hero-right">
+        <img src="images/hero.jpg" alt="hero banner">
+      </div>
+    </section>
+
+    <section class="deals">
+      <h3>Top Deals</h3>
+      <div class="product-grid" id="featured-list">
+        <!-- product cards are static or can be added dynamically -->
+        <article class="card">
+          <img src="images/electronics.jpg" alt="Electronics">
+          <h4>Smartphone ABC</h4>
+          <div class="price">৳ 15,999</div>
+          <div class="card-actions">
+            <button class="btn add" data-id="1">Add to Cart</button>
+            <a class="btn ghost" href="products.html">View</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/fashion.jpg" alt="Fashion">
+          <h4>Men's Jacket</h4>
+          <div class="price">৳ 2,599</div>
+          <div class="card-actions">
+            <button class="btn add" data-id="2">Add to Cart</button>
+            <a class="btn ghost" href="products.html">View</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/home.jpg" alt="Home">
+          <h4>Decor Lamp</h4>
+          <div class="price">৳ 1,200</div>
+          <div class="card-actions">
+            <button class="btn add" data-id="3">Add to Cart</button>
+            <a class="btn ghost" href="products.html">View</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/mobile.jpg" alt="Mobile">
+          <h4>Wireless Earbuds</h4>
+          <div class="price">৳ 2,499</div>
+          <div class="card-actions">
+            <button class="btn add" data-id="4">Add to Cart</button>
+            <a class="btn ghost" href="products.html">View</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="categories">
+      <h3>Shop by Category</h3>
+      <div class="cats-grid">
+        <div class="cat-card"><img src="images/electronics.jpg" alt=""><div>Electronics</div></div>
+        <div class="cat-card"><img src="images/fashion.jpg" alt=""><div>Fashion</div></div>
+        <div class="cat-card"><img src="images/grocery.jpg" alt=""><div>Grocery</div></div>
+        <div class="cat-card"><img src="images/mobile.jpg" alt=""><div>Mobile & Gadgets</div></div>
+        <div class="cat-card"><img src="images/home.jpg" alt=""><div>Home & Furniture</div></div>
+        <div class="cat-card"><img src="images/beauty.jpg" alt=""><div>Beauty & Health</div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> OneZ Bangladesh — ATOZ Zone</p>
+    </div>
+  </footer>
+
+  <script>
+    // small helpers: year and cart (localStorage simple)
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const cartKey = 'atoz_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    function updateCartCount(){ document.getElementById('cart-count').textContent = cart.length; }
+    updateCartCount();
+
+    document.addEventListener('click', function(e){
+      if(e.target.matches('.add')){
+        const card = e.target.closest('.card');
+        const title = card.querySelector('h4').textContent;
+        const priceText = card.querySelector('.price').textContent.replace(/[^\d]/g,'') || '0';
+        cart.push({title, price: parseInt(priceText)});
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+        updateCartCount();
+        alert(title + ' added to cart');
+      }
+    });
+  </script>
+</body>
+</html>
